@@ -3,6 +3,8 @@ from suma_resta import suma_resta_archivo
 from multiplicador_de_matrices import multiplicacion_de_matrices
 app = customtkinter.CTk()
 from operacion_vectores_files import menu_operacion_con_vectores
+from cifrado_files import cifrado
+from cadenas_de_markov_files import cadenas_de_markov
 
 
 def suma_resta():
@@ -22,11 +24,11 @@ def rango_de_una_matriz():
 
 
 def cifrado_por_matrices():
-    print(" ")
+    cifrado.main()
 
 
-def cadenas_de_markov():
-    print("")
+def cadenas_de_markov_open():
+    cadenas_de_markov.main()
 
 
 def open_operaciones_con_vectores():
@@ -85,7 +87,7 @@ def buttons(frame):
 
     button_cadenas_markov = customtkinter.CTkButton(master=frame, text='Cadenas de Markov', height=100, width=210,
                                                     font=("Arial", 20), fg_color="#3E4446",
-                                                    command=cadenas_de_markov)
+                                                    command=cadenas_de_markov_open)
 
     button_cadenas_markov.pack(pady=10, padx=10)
     button_cadenas_markov.place(x=300, y=310)

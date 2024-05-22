@@ -253,6 +253,3 @@ def restador(matriz_a1, matriz_b2):
             lista.append(resta)
         matriz_resultante.append(lista)
     return matriz_resultante
-
-
-

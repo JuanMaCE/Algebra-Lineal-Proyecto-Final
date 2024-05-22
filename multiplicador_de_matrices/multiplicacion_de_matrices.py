@@ -1,16 +1,14 @@
 import customtkinter
 import numpy as np
-
 global lb_datos
 matriz_a = []
 matriz_b = []
 from CTkMessagebox import CTkMessagebox
 global filas
 global columnas
-import numpy
 global lista_a
 global contador_a_columnas
-global contador_a_filas
+global contador_b
 
 global lista_b
 global contador_b_columnas
@@ -78,7 +76,7 @@ def main():
     lista_b = []
     global contador_b_columnas
     contador_b_columnas = 0
-    global contador_a_filas
+    global contador_b
     contador_a_filas = 0
     global contador_b_filas
     contador_b_filas = 0
@@ -101,42 +99,31 @@ def main():
     def agregar_datos_matriz_a():
         dato = float(ib_ingreso_datos_matriz_a.get())
         global lista_a
-        lista_a.append(dato)
         global contador_a_columnas
         contador_a_columnas += 1
-        global contador_a_filas
-        if contador_a_columnas == int(columnas):
-            contador_a_filas += 1
-            contador_a_columnas = 0
-            matriz_a.append(lista_a)
-            lista_a = []
-        if contador_a_filas == int(filas):
-            CTkMessagebox(title='ESTA LLENA LA MATRIZ A', message='NO SE PUEDEN AGREGAR MÁS DATOS')
-            matriz_a_impresion = imprimir_matriz(matriz_a)
-            lb_matriz_a.configure(text=" ")
-            lb_matriz_a.configure(state="disabled")
-            lb_matriz_a.configure(text=matriz_a_impresion)
-            lb_matriz_a.configure(state="normal")
+        if contador_a_columnas <= (int(ib_ingreso_columnas_a.get()) * int(ib_ingreso_filas_a.get())):
+            lista_a.append(dato)
+            if contador_a_columnas % int(ib_ingreso_columnas_a.get()) == 0:
+                matriz_a.append(lista_a)
+                lista_a = []
+            if contador_a_columnas == (int(ib_ingreso_columnas_a.get()) * int(ib_ingreso_filas_a.get())):
+                CTkMessagebox(title='ESTA LLENA LA MATRIZ A', message='NO SE PUEDEN AGREGAR MÁS DATOS')
+                lb_matriz_a.configure(text=imprimir_matriz(matriz_a))
 
     def agregar_datos_matriz_b():
         dato = float(ib_ingreso_datos_matriz_b.get())
         global lista_b
-        lista_b.append(dato)
         global contador_b_columnas
         contador_b_columnas += 1
-        global contador_b_filas
-        if contador_b_columnas == int(columnas):
-            contador_b_filas += 1
-            contador_b_columnas = 0
-            matriz_b.append(lista_b)
-            lista_b = []
-        if contador_b_filas == int(filas):
-            CTkMessagebox(title='ESTA LLENA LA MATRIZ A', message='NO SE PUEDEN AGREGAR MÁS DATOS')
-            matriz_a_impresion = imprimir_matriz(matriz_b)
-            lb_matriz_b.configure(text=" ")
-            lb_matriz_b.configure(state="disabled")
-            lb_matriz_b.configure(text=matriz_a_impresion)
-            lb_matriz_b.configure(state="normal")
+        if contador_b_columnas <= (int(ib_ingreso_columnas_b.get()) * int(ib_ingreso_filas_b.get())):
+            lista_b.append(dato)
+            if contador_b_columnas % int(ib_ingreso_columnas_b.get()) == 0:
+                matriz_b.append(lista_b)
+                lista_b = []
+            if contador_b_columnas == (int(ib_ingreso_columnas_b.get()) * int(ib_ingreso_filas_b.get())):
+                CTkMessagebox(title='ESTA LLENA LA MATRIZ A', message='NO SE PUEDEN AGREGAR MÁS DATOS')
+                lb_matriz_b.configure(text=imprimir_matriz(matriz_b))
+
 
     button_ingreso_datos_matriz_a = customtkinter.CTkButton(master=frame, text='Ingreso Matriz A',
                                                             font=("Arial", 20), fg_color="#3E4446",
@@ -162,7 +149,8 @@ def main():
 
     def multiplicar():
         matriz_resultante = "Resultado : " + "\n"
-        matriz_resultante += str(np.dot(matriz_a, matriz_b))
+        matriz_resultante += imprimir_matriz(multiply_matrices(matriz_a, matriz_b))
+
         mostrar_multiplicacion = customtkinter.CTkLabel(master=frame, text=matriz_resultante,
                                                         font=("Times New Roman", 50, "bold"))
         mostrar_multiplicacion.pack(pady=400, padx=400)
@@ -236,3 +224,26 @@ def imprimir_matriz(matriz):
         texto += linea + "\n"
     return texto
 
+
+def multiply_matrices(A, B):
+    # Comprobar si la multiplicación es posible
+    if len(A[0]) != len(B):
+        raise ValueError(
+            "El número de columnas de la primera matriz debe ser igual al número de filas de la segunda matriz.")
+
+    # Dimensiones de las matrices
+    rows_A = len(A)
+    cols_A = len(A[0])
+    rows_B = len(B)
+    cols_B = len(B[0])
+
+    # Crear la matriz resultante con ceros
+    C = [[0 for _ in range(cols_B)] for _ in range(rows_A)]
+
+    # Realizar la multiplicación de matrices
+    for i in range(rows_A):
+        for j in range(cols_B):
+            for k in range(cols_A):
+                C[i][j] += A[i][k] * B[k][j]
+
+    return C
