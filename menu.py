@@ -5,7 +5,7 @@ app = customtkinter.CTk()
 from operacion_vectores_files import menu_operacion_con_vectores
 from cifrado_files import cifrado
 from cadenas_de_markov_files import cadenas_de_markov
-
+from determinante_matriz import determinante_matriz_archivo
 
 def suma_resta():
     suma_resta_archivo.main()
@@ -16,7 +16,7 @@ def open_multiplicador():
 
 
 def determinante_de_una_matriz():
-    print(" ")
+    determinante_matriz_archivo.main()
 
 
 def rango_de_una_matriz():
