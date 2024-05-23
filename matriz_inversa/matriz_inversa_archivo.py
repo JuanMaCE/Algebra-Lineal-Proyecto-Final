@@ -8,7 +8,6 @@ global matriz_a, entradas, dimension
 matriz_a = []
 entradas = []
 
-
 def calcular_inversa():
     try:
         datos = []

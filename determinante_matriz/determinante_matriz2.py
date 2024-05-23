@@ -7,7 +7,6 @@ global matriz_a, entradas, dimension
 matriz_a = []
 entradas = []
 
-
 def calcular_determinante():
     try:
         datos = []
