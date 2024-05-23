@@ -6,6 +6,8 @@ from operacion_vectores_files import menu_operacion_con_vectores
 from cifrado_files import cifrado
 from cadenas_de_markov_files import cadenas_de_markov
 from determinante_matriz import determinante_matriz_archivo
+from matriz_inversa import matriz_inversa_archivo
+from rango_matriz import rango_matriz_archivo
 
 def suma_resta():
     suma_resta_archivo.main()
@@ -20,7 +22,7 @@ def determinante_de_una_matriz():
 
 
 def rango_de_una_matriz():
-    print(" ")
+    rango_matriz_archivo.main()
 
 
 def cifrado_por_matrices():
@@ -34,6 +36,8 @@ def cadenas_de_markov_open():
 def open_operaciones_con_vectores():
     menu_operacion_con_vectores.main_window()
 
+def inversa_de_matriz():
+    matriz_inversa_archivo.main()
 
 def main_window():
     customtkinter.set_appearance_mode("dark")
@@ -90,7 +94,7 @@ def buttons(frame):
                                                     command=cadenas_de_markov_open)
 
     button_cadenas_markov.pack(pady=10, padx=10)
-    button_cadenas_markov.place(x=300, y=310)
+    button_cadenas_markov.place(x=320, y=310)
 
     button_operacion_con_vectores = customtkinter.CTkButton(master=frame, text='Operación con Vectores',
                                                             height=100, width=210,
@@ -99,6 +103,14 @@ def buttons(frame):
 
     button_operacion_con_vectores.pack(pady=10, padx=10)
     button_operacion_con_vectores.place(x=650, y=10)
+    
+    button_operacion_con_vectores = customtkinter.CTkButton(master=frame, text='Inversa de una matriz',
+                                                            height=100, width=210,
+                                                            font=("Arial", 20), fg_color="#3E4446",
+                                                            command=inversa_de_matriz)
+
+    button_operacion_con_vectores.pack(pady=10, padx=10)
+    button_operacion_con_vectores.place(x=650, y=310)    
 
 
 main_window()
