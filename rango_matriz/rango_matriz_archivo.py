@@ -1,6 +1,6 @@
 import customtkinter as ctk
 import numpy as np
-from numpy.linalg import inv
+from numpy.linalg import matrix_rank
 from CTkMessagebox import CTkMessagebox
 
 global matriz_a, entradas, dimension
@@ -9,7 +9,7 @@ matriz_a = []
 entradas = []
 
 
-def calcular_inversa():
+def calcular_rango():
     try:
         datos = []
         for i in range(dimension):
@@ -21,9 +21,9 @@ def calcular_inversa():
         print("Datos de la matriz:", datos)
         matriz = np.array(datos)
         print("Matriz:\n", matriz)
-        inversa = inv(matriz)
-        print("Inversa calculada:\n", inversa)
-        lb_resultado.configure(text=f"La matriz inversa es:\n{np.array_str(inversa)}")
+        rango = matrix_rank(matriz)
+        print("Rango calculado:", rango)
+        lb_resultado.configure(text=f"El rango de la matriz es: {rango}")
     except Exception as e:
         CTkMessagebox(title='Error', message=str(e))
 
@@ -53,8 +53,8 @@ def main():
                                    command=filas_columnas_agregar)
     button_ingreso.place(x=160, y=100)
 
-    button_calcular = ctk.CTkButton(master=frame, text='Calcular Inversa', font=("Arial", 20), fg_color="#3E4446",
-                                    command=calcular_inversa)
+    button_calcular = ctk.CTkButton(master=frame, text='Calcular Rango', font=("Arial", 20), fg_color="#3E4446",
+                                    command=calcular_rango)
     button_calcular.place(x=380, y=100)
 
     lb_resultado = ctk.CTkLabel(master=frame, text="", font=("Arial", 20))
@@ -68,7 +68,7 @@ def cargar_datos():
     ctk.set_default_color_theme('dark-blue')
     ventana = ctk.CTkToplevel()
     ventana.grab_set()
-    ventana.title("Cálculo de la Inversa")
+    ventana.title("Cálculo del Rango")
     ventana.geometry('600x400')
     return ventana
 
@@ -80,8 +80,7 @@ def frame1(ventana):
 
 
 def labels_parte1(frame):
-    lb_titulo = ctk.CTkLabel(master=frame, text="Cálculo de la Inversa de una Matriz",
-                             font=("Times New Roman", 30, "bold"))
+    lb_titulo = ctk.CTkLabel(master=frame, text="Cálculo del Rango de una Matriz", font=("Times New Roman", 30, "bold"))
     lb_titulo.pack(pady=10)
     lb_titulo.place(x=10, y=10)
 

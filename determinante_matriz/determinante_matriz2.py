@@ -7,6 +7,7 @@ global matriz_a, entradas, dimension
 matriz_a = []
 entradas = []
 
+
 def calcular_determinante():
     try:
         datos = []
@@ -16,9 +17,11 @@ def calcular_determinante():
                 dato = float(entradas[i][j].get())
                 fila.append(dato)
             datos.append(fila)
-
+        print("Datos de la matriz:", datos)
         matriz = np.array(datos)
+        print("Matriz:\n", matriz)
         determinante = np.linalg.det(matriz)
+        print("Determinante calculado:", determinante)
         lb_resultado.configure(text=f"La determinante de la matriz es: {determinante:.2f}")
     except Exception as e:
         CTkMessagebox(title='Error', message=str(e))
@@ -33,7 +36,7 @@ def filas_columnas_agregar():
             entry = ctk.CTkEntry(master=frame)
             entry.place(x=10 + j * 50, y=150 + i * 50)
             entradas[i][j] = entry
-
+    print("Entradas de datos creadas para la matriz.")
 
 def main():
     global frame, lb_resultado, ib_dimension
