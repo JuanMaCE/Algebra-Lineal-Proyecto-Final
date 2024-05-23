@@ -8,6 +8,7 @@ global matriz_a, entradas, dimension
 matriz_a = []
 entradas = []
 
+
 def calcular_inversa():
     try:
         datos = []
@@ -28,12 +29,12 @@ def calcular_inversa():
 def filas_columnas_agregar():
     global dimension, entradas, matriz_a
     dimension = int(ib_dimension.get())
-    entries = [[None for _ in range(dimension)] for _ in range(dimension)]
+    entradas = [[None for _ in range(dimension)] for _ in range(dimension)]
     for i in range(dimension):
         for j in range(dimension):
             entry = ctk.CTkEntry(master=frame)
             entry.place(x=10 + j * 50, y=150 + i * 50)
-            entries[i][j] = entry
+            entradas[i][j] = entry
 
 
 def main():
